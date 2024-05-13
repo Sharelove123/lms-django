@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Student(models.Model):
     student = models.ForeignKey(User,on_delete=models.CASCADE,related_name='student')
-    image = models.ImageField(upload_to='teacher_images', null=True, blank=True)
+    image = models.ImageField(upload_to='student_images', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     
     
@@ -41,6 +41,7 @@ class Course(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     course_summary = models.TextField()
     requirements = models.TextField()
+    image = models.ImageField(upload_to='course_image', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
 
     def __str__(self):
@@ -68,7 +69,8 @@ class Blog(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='blog_teacher')
     title = models.CharField(max_length=100)
     category = models.ForeignKey(Category,on_delete=models.CASCADE, related_name='blog_category')
-    comment = models.TextField(max_length=800,null=False,blank=False)
+    content = models.TextField(null=False,blank=False)
+    image = models.ImageField(upload_to='blog_images', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     
     

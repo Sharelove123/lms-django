@@ -1,7 +1,7 @@
 from django.contrib import admin
 # Register your models here.
 
-from .models import Teacher,Review,Student,Category,Course,CourseCurriculum
+from .models import Teacher,Review,Student,Category,Course,CourseCurriculum,Blog
 
 
 @admin.register(Student)
@@ -26,6 +26,10 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(CourseCurriculum)
 class CourseCurriculumAdmin(admin.ModelAdmin):
+    list_display = ['id']
+    
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
     list_display = ['id']
 
 #admin.site.register(Student, StudentAdmin)
