@@ -51,8 +51,21 @@ def blogs(request):
     page_obj = paginator.get_page(page_number)
     return render(request,'mentor/blog.html',{'page_obj':page_obj})
 
-
+import json
 def blogs_single(request,id):
     blog = models.Blog.objects.get(id=id)
-    context={'blog':blog}
+    blog_review = models.BlogReview.objects.filter(blog=blog)
+    userId = request.user
+    student = models.Student.objects.get(student=userId)
+    studentId = student.id
+    studentImage = json.dumps(student.image.url)
+    username = json.dumps(student.student.username)
+
+    context={
+        'blog':blog,
+        'blog_review':blog_review,
+        'studentId':studentId,
+        'studentImage':studentImage,
+        'username':username
+    }
     return render(request,'mentor/blog-single.html',context=context)

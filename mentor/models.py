@@ -73,6 +73,21 @@ class Blog(models.Model):
     image = models.ImageField(upload_to='blog_images', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     
+class BlogReview(models.Model):
+    student = models.ForeignKey(Student,on_delete=models.CASCADE, related_name='blog_review')
+    comment = models.TextField(max_length=800,null=False,blank=False)
+    blog = models.ForeignKey(Blog,on_delete=models.CASCADE,related_name='review_blog_content',null=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+    
+class BlogReviewReply(models.Model):
+    student = models.ForeignKey(Student,on_delete=models.CASCADE, related_name='blogreply_review')
+    comment = models.TextField(max_length=800,null=False,blank=False)
+    blog = models.ForeignKey(BlogReview,on_delete=models.CASCADE,related_name='review_blogreview_content',null=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+    
+    
+    
+    
     
     
 
