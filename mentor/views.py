@@ -45,13 +45,11 @@ def courses_single(request,id):
     return render(request,'mentor/courses-single.html',context=context)
 
 def blogs(request):
-    #queryset = models.Blog.objects.all()
-    #paginator = Paginator(queryset, 6)
-    #page_number = request.GET.get('page')
-    #page_obj = paginator.get_page(page_number)
-    print('blog')
-
-    return render(request,'mentor/blog.html')
+    queryset = models.Blog.objects.all()
+    paginator = Paginator(queryset, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,'mentor/blog.html',{'page_obj':page_obj})
 
 
 def blogs_single(request,id):
