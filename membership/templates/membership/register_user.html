@@ -1,0 +1,67 @@
+{% extends 'mentor/base.html' %}
+
+{% block content %}
+	
+<div class="lg:flex items-center justify-center w-800 h-200 mt-8">
+    <div class="shadow p-4 mb-5 bg-body rounded">
+        <h1>Register</h1>
+        <br/>
+
+        <form action="{% url 'membership:register' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="flex items-center justify-center mt-6">
+                <label for="role" class="mr-4 t-20">Choose your role:</label>
+                <select id="role" name="role" class="role-dropdown" onchange="myFunction()">
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>    
+                </select>
+            </div>
+
+            <div class="flex flex-col items-center justify-center mt-6 " id="teacher-fields" >
+                <!-- Teacher-specific fields will be added dynamically here -->
+
+            </div>
+
+            <div class="flex items-center justify-center mt-6">
+                <input type="file" id="profile_image" name="profile_image" class="border border-gray-300 rounded px-4 py-2 w-full">
+            </div>
+
+            <br/><br/>
+            <input type="submit" value="Submit" class="btn btn-secondary">
+
+        </form>
+    </div>
+</div>
+
+<script>
+	function myFunction() {
+	var x = document.getElementById("role").value;
+	console.log(x);
+	var teacherFields = document.getElementById('teacher-fields');
+	if(x==='teacher'){
+		teacherFields.innerHTML = `
+			<label for="position" class="block mt-4">Position:</label>
+			<input type="text" id="position" name="position" class="border border-gray-300 rounded px-4 py-2 w-full">
+
+			<label for="about" class="block mt-4">About:</label>
+			<textarea id="about" name="about" class="border border-gray-300 rounded px-4 py-2 w-full h-500"></textarea>
+
+			<label for="achievements" class="block mt-4">Achievements:</label>
+			<textarea id="achievements" name="achievements" class="border border-gray-300 rounded px-4 py-2 w-full"></textarea>
+
+			<label for="objectives" class="block mt-4">Objectives:</label>
+			<textarea id="objectives" name="objectives" class="border border-gray-300 rounded px-4 py-2 w-full"></textarea>
+			`
+			};
+	if(x==='student'){
+			teacherFields.innerHTML = `
+			<div></div>
+			`;
+		}
+	}	
+</script>
+{% endblock %}
+

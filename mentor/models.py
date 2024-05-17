@@ -64,6 +64,9 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='review_course',null=True)
     
+    
+    
+    
 
 class Blog(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='blog_teacher')
@@ -79,11 +82,7 @@ class BlogReview(models.Model):
     blog = models.ForeignKey(Blog,on_delete=models.CASCADE,related_name='review_blog_content',null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     
-class BlogReviewReply(models.Model):
-    student = models.ForeignKey(Student,on_delete=models.CASCADE, related_name='blogreply_student')
-    comment = models.TextField(max_length=800,null=False,blank=False)
-    blogreview = models.ForeignKey(BlogReview,on_delete=models.CASCADE,related_name='review_blogreview_content',null=True)
-    created_at = models.DateTimeField(auto_now_add=True,null=True)
+
     
     
     

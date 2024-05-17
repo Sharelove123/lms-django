@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'daphne',
     'django.contrib.staticfiles',
+    'membership',
     'core',
     'mentor',
-    'channels' ,
+    'channels',
 ]
 
 MIDDLEWARE = [

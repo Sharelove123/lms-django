@@ -1,0 +1,43 @@
+{% extends 'mentor/base.html' %}
+
+{% block content %}
+	
+  <div class="lg:flex items-center justify-center w-800">
+	<h1>Login</h1>
+  <br/>
+
+
+		<form action="" method=POST>
+			{% csrf_token %}
+
+		<form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Username</label>
+    <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+    
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password">
+  </div>
+
+  <div class="mb-3 row h-30 flex justify-center items-center p-3">
+    <label for="role" class="pr-2 font-awesome">Choose your role:</label>
+      <select id="role" name="role" class="role-dropdown">
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+      </select>
+  </div>
+  
+
+
+			
+
+			<input type="submit" value="Submit" class="btn btn-secondary flex items-center justify-center">
+
+		</form>
+  </div>
+		
+
+<br/><br/>	
+{% endblock %}
