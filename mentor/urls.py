@@ -11,4 +11,6 @@ urlpatterns = [
     path('courses-single/<int:id>', views.courses_single, name="courses-single"),
     path('blog', views.blogs, name="blogs"),
     path('blogs-single/<int:id>', views.blogs_single, name="blogs-single"),
+    path('about', views.about, name="about"),
+    path('contact', views.contact_us, name="contact"),
 ]

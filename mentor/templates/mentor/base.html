@@ -12,7 +12,7 @@
       />
   
       <!--====== Title ======-->
-      <title>Edubin - LMS Education HTML Template</title>
+      <title>LMS Education Platform</title>
   
       <!--====== Favicon Icon ======-->
       <link
@@ -38,6 +38,8 @@
   
       <!--====== Magnific Popup css ======-->
       <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   
       <!--====== Bootstrap css ======-->
       <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
@@ -177,7 +179,7 @@
                         </ul>
                       </li>
                       <li class="nav-item">
-                        <a href="{% static 'about.html">About us</a>
+                        <a href="{% url 'mentor:about' %}">About Us</a>
                       </li>
                       <li class="nav-item">
                         <a href="{% url 'mentor:courses' %}">Courses</a>
@@ -237,15 +239,7 @@
                         </ul>
                       </li>
                       <li class="nav-item">
-                        <a href="{% static 'contact.html">Contact</a>
-                        <ul class="sub-menu">
-                          <li>
-                            <a href="{% static 'contact.html">Contact Us</a>
-                          </li>
-                          <li>
-                            <a href="{% static 'contact-2.html">Contact Us 2</a>
-                          </li>
-                        </ul>
+                        <a href="{% url 'mentor:contact' %}">Contact</a>
                       </li>
                       <li class="nav-item">
                         {% if user.is_authenticated %}
@@ -312,7 +306,17 @@
       <!--====== PAGE BANNER PART START ======-->
   
   
+    {% if messages %}
+      {% for message in messages %}
+        
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
+      {% endfor %}
+    {% endif %}
+    
     {% block content %}
     {% endblock %}
     <footer id="footer-part">

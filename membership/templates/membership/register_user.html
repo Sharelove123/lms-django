@@ -30,8 +30,9 @@
             </div>
 
             <br/><br/>
-            <input type="submit" value="Submit" class="btn btn-secondary">
-
+            <div class="flex justify-center items-center">
+                <input type="submit" value="Submit" class="btn btn-secondary">
+            </div>
         </form>
     </div>
 </div>
@@ -44,16 +45,24 @@
 	if(x==='teacher'){
 		teacherFields.innerHTML = `
 			<label for="position" class="block mt-4">Position:</label>
-			<input type="text" id="position" name="position" class="border border-gray-300 rounded px-4 py-2 w-full">
+            <div class="singel-form form-group w-full">
+			<input type="text" id="position" name="position" class="form-control border border-gray-300 rounded px-4 py-2 w-full">
+            </div>
 
 			<label for="about" class="block mt-4">About:</label>
-			<textarea id="about" name="about" class="border border-gray-300 rounded px-4 py-2 w-full h-500"></textarea>
+            <div class="singel-form form-group w-full">
+			<textarea id="about" name="about" class="form-control border border-gray-300 rounded px-4 py-2 w-full h-500"></textarea>
+            </div>
 
 			<label for="achievements" class="block mt-4">Achievements:</label>
-			<textarea id="achievements" name="achievements" class="border border-gray-300 rounded px-4 py-2 w-full"></textarea>
+            <div class="singel-form form-group w-full">
+			<textarea id="achievements" name="achievements" class="form-control border border-gray-300 rounded px-4 py-2 w-full"></textarea>
+            <div>
 
 			<label for="objectives" class="block mt-4">Objectives:</label>
-			<textarea id="objectives" name="objectives" class="border border-gray-300 rounded px-4 py-2 w-full"></textarea>
+            <div class="singel-form form-group w-full">
+			<textarea id="objectives" name="objectives" class="form-control border border-gray-300 rounded w-full"></textarea>
+            </div>
 			`
 			};
 	if(x==='student'){

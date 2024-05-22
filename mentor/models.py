@@ -57,7 +57,7 @@ class CourseCurriculum(models.Model):
     def __str__(self):
         return self.title
     
-class Review(models.Model):
+class CourseReview(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE, related_name='review_student')
     comment = models.TextField(max_length=800,null=False,blank=False)
     rateing = models.IntegerField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
@@ -81,7 +81,18 @@ class BlogReview(models.Model):
     comment = models.TextField(max_length=800,null=False,blank=False)
     blog = models.ForeignKey(Blog,on_delete=models.CASCADE,related_name='review_blog_content',null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
-    
+
+
+
+class Contact(models.Model):
+    yourname = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    phone = models.CharField(max_length=15, blank=True)
+    message = models.TextField()
+
+    def __str__(self):
+        return f"{self.yourname} - {self.subject}"
 
     
     

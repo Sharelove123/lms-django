@@ -10,11 +10,22 @@ def login_user(request):
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(request, username=username, password=password)
+		data = request.POST['role']
 		if user is not None:
-			login(request, user)
-			return redirect('core:home')
+			if request.POST['role']=='student' and Student.objects.filter(student=user).exists():
+				login(request, user)
+				return redirect('core:home')
+			elif request.POST['role']=='teacher' and Teacher.objects.filter(teacher=user).exists():
+				login(request, user)
+				return redirect('core:home')
+
+			else:
+				messages.error(request,("Please Check your role again is it correct"))
+				return redirect('membership:login')                                                                                                                      
+      
+		
 		else:
-			messages.success(request, ("There Was An Error Logging In, Try Again..."))	
+			messages.error(request, ("There Was An Error Logging In, Try Again..."))	
 			return redirect('membership:login')	
 
 
