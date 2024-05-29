@@ -52,6 +52,7 @@ class CourseCurriculum(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE,related_name='curriculum_course')
     title = models.CharField(max_length=100)
     description = models.TextField()
+    video = models.FileField(upload_to='videos/', null=True, blank=True)
     duration = models.DurationField()
 
     def __str__(self):
@@ -93,6 +94,38 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.yourname} - {self.subject}"
+    
+
+
+class Product(models.Model):   
+    title = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
+    category = models.ForeignKey(Category,on_delete=models.CASCADE, related_name='product_category',null=True, blank=True)
+    image = models.ImageField(upload_to='product_front_images', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+
+    def __str__(self):
+        return self.title
+    
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='product_images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='product_images/')
+
+    def __str__(self):
+        return f'{self.product.title} Image'
+    
+class ReviewProduct(models.Model):
+    product = models.ForeignKey(Product, related_name='review_product', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rateing = models.IntegerField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+
+    def __str__(self):
+        return f'Review of {self.product.title} by {self.user.username}'
+
+
 
     
     

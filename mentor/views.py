@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from . import models
-from django.db.models import Avg
+from django.db.models import Case, When, CharField, Value, F, Avg, ImageField
 from django.http import JsonResponse
 from django.http import HttpResponse  
 from .forms import ContactForm
@@ -37,25 +37,28 @@ def courses_single(request,id):
     total_review = course_review.count()
     avg_rateing = course_review.aggregate(rateing=Avg('rateing'))['rateing']
     course_curriculum = models.CourseCurriculum.objects.filter(course=course)
-    
-    if request.user.is_authenticated and models.Student.objects.get(student = request.user) in course.students.all():
-        userId = request.user
-        student = models.Student.objects.get(student=userId)
-        studentId = student.id
-        studentImage = json.dumps(student.image.url)
-        username = json.dumps(student.student.username)
+    context = {}
+    if models.Student.objects.filter(student=request.user).exists():
+        if request.user.is_authenticated and models.Student.objects.get(student = request.user) in course.students.all():
+            userId = request.user
+            student = models.Student.objects.get(student=userId)
+            studentId = student.id
+            studentImage = json.dumps(student.image.url)
+            username = json.dumps(student.student.username)
 
-        context={
-            'courseId':course.id,
-            'course_review':course_review,
-            'total_review':total_review,
-            'avg_rateing':avg_rateing,
-            'course_curriculum':course_curriculum,
-            'studentId':studentId,
-            'studentImage':studentImage,
-            'username':username,
-            'enrolled':True,
-        }
+            context={
+                'course':course,
+                'courseId':course.id,
+                'course_review':course_review,
+                'total_review':total_review,
+                'avg_rateing':avg_rateing,
+                'course_curriculum':course_curriculum,
+                'studentId':studentId,
+                'studentImage':studentImage,
+                'username':username,
+                'enrolled':True,
+            }
+            
     else:
         context={
                 'course':course,
@@ -132,3 +135,98 @@ def contact_us(request):
         form = ContactForm()
 
     return render(request, 'mentor/contact.html', {'form': form})
+
+
+
+def shops(request):
+    queryset = models.Product.objects.all()
+    paginator = Paginator(queryset, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request,'mentor/shop.html',{'page_obj':page_obj})
+
+
+def shops_single(request,id):
+    product = models.Product.objects.get(id=id)
+    product_review = models.ReviewProduct.objects.filter(product=product)          
+    total_review = product_review.count()
+    avg_rateing = product_review.aggregate(rateing=Avg('rateing'))['rateing']
+    
+    
+    if request.user.is_authenticated:
+        user = request.user
+        userId = json.dumps(user.id)
+        if models.Student.objects.filter(student=user).exists():
+            student = models.Student.objects.get(student=user)
+            userImage = json.dumps(student.image.url)
+            
+        if models.Teacher.objects.filter(teacher=user).exists():
+            teacher = models.Teacher.objects.get(teacher=user)
+            userImage = json.dumps(teacher.image.url)
+        username = json.dumps(user.username)
+
+        context={
+            'productId':json.dumps(product.id),
+            'product':product,
+            'product_review':product_review,
+            'total_review':total_review,
+            'avg_rateing':avg_rateing,
+            'userId':userId,
+            'userImage':userImage,
+            'username':username,
+        }
+    else:
+        context={
+                'product':product,
+                'productId':product.id,
+                'product_review':product_review,
+                'total_review':total_review,
+                'avg_rateing':avg_rateing,
+                'enrolled':False
+            }
+
+    return render(request,'mentor/shop-single.html',context=context)
+
+
+def dashboard(request):
+    user = request.user
+    if models.Student.objects.filter(student=user).exists() and models.Teacher.objects.filter(teacher=user).exists():
+        student = models.Student.objects.get(student=user)
+        teacher = models.Teacher.objects.get(teacher=user)
+        enrolled_courses = student.courses_enrolled.all()
+        your_courses = teacher.courses_taught.all()
+        context = {
+            'student':student,
+            'teacher':teacher,
+            'enrolled_courses': enrolled_courses,
+            'your_courses':your_courses
+        }
+        
+        
+    elif models.Student.objects.filter(student=user).exists():
+        student = models.Student.objects.get(student=user)
+        teacher = None
+        enrolled_courses = student.courses_enrolled.all()
+        print(enrolled_courses)
+        context = {
+            'student':student,
+            'teacher':None,
+            'enrolled_courses': enrolled_courses,
+        }
+        
+        
+    elif models.Teacher.objects.filter(teacher=user).exists():
+        student = None
+        teacher = models.Teacher.objects.get(teacher=user)
+        your_courses = teacher.courses_taught.all()
+        
+        context = {
+            'student':None,
+            'teacher':teacher,
+            'your_courses':your_courses
+        }
+
+        
+        
+    return render(request,'mentor/dashboard.html',context=context)

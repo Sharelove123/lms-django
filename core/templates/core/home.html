@@ -191,17 +191,6 @@
                         </ul>
                       </li>
                       <li class="nav-item">
-                        <a href="{% static 'events.html">Events</a>
-                        <ul class="sub-menu">
-                          <li><a href="{% static 'events.html">Events</a></li>
-                          <li>
-                            <a href="{% static 'events-singel.html"
-                              >Event Singel</a
-                            >
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="nav-item">
                         <a href="{% url 'mentor:teachers' %}">Our teachers</a>
                         <ul class="sub-menu">
                           <li>
@@ -226,16 +215,19 @@
                         </ul>
                       </li>
                       <li class="nav-item">
-                        <a href="{% static 'shop.html">Shop</a>
+                        <a href="{% url 'mentor:shops' %}">Shop</a>
                         <ul class="sub-menu">
-                          <li><a href="{% static 'shop.html">Shop</a></li>
+                          <li><a href="{% url 'mentor:shops' %}">Shop</a></li>
                           <li>
-                            <a href="{% static 'shop-singel.html">Shop Singel</a>
+                            <a href="{% url 'mentor:shop-single' 1 %}">Shop Singel</a>
                           </li>
                         </ul>
                       </li>
                       <li class="nav-item">
                         <a href="{% url 'mentor:contact' %}">Contact</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{% url 'mentor:dashboard' %}">Dashboard</a>
                       </li>
                       <li class="nav-item">
                         {% if user.is_authenticated %}

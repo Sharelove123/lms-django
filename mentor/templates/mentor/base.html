@@ -39,6 +39,7 @@
       <!--====== Magnific Popup css ======-->
       <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
 
+      
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   
       <!--====== Bootstrap css ======-->
@@ -57,9 +58,10 @@
       <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
     </head>
   
-    <body>
+    <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
       <!--====== PRELOADER PART START ======-->
-  
+      <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
+      
       <div class="preloader">
         <div class="loader rubix-cube">
           <div class="layer layer-1"></div>
@@ -195,17 +197,6 @@
                         </ul>
                       </li>
                       <li class="nav-item">
-                        <a href="{% static 'events.html">Events</a>
-                        <ul class="sub-menu">
-                          <li><a href="{% static 'events.html">Events</a></li>
-                          <li>
-                            <a href="{% static 'events-singel.html"
-                              >Event Singel</a
-                            >
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="nav-item">
                         <a href="{% url 'mentor:teachers' %}">Our teachers</a>
                         <ul class="sub-menu">
                           <li>
@@ -230,16 +221,19 @@
                         </ul>
                       </li>
                       <li class="nav-item">
-                        <a href="{% static 'shop.html">Shop</a>
+                        <a href="{% url 'mentor:shops' %}">Shop</a>
                         <ul class="sub-menu">
-                          <li><a href="{% static 'shop.html">Shop</a></li>
+                          <li><a href="{% url 'mentor:shops' %}">Shop</a></li>
                           <li>
-                            <a href="{% static 'shop-singel.html">Shop Singel</a>
+                            <a href="{% url 'mentor:shop-single' 1 %}">Shop Singel</a>
                           </li>
                         </ul>
                       </li>
                       <li class="nav-item">
                         <a href="{% url 'mentor:contact' %}">Contact</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{% url 'mentor:dashboard' %}">Dashboard</a>
                       </li>
                       <li class="nav-item">
                         {% if user.is_authenticated %}
