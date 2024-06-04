@@ -31,11 +31,18 @@ def courses(request):
     return render(request,'mentor/courses.html',{'page_obj':page_obj})
 
 
+
 def courses_single(request,id):
     course = models.Course.objects.get(id=id)
-    course_review = models.CourseReview.objects.filter(course=course)
-    total_review = course_review.count()
-    avg_rateing = course_review.aggregate(rateing=Avg('rateing'))['rateing']
+    
+    if models.CourseReview.objects.filter(course=course).exists():
+        course_review = models.CourseReview.objects.filter(course=course)
+        total_review = course_review.count()
+        avg_rateing = course_review.aggregate(rateing=Avg('rateing'))['rateing']
+    else:
+        course_review = []
+        avg_rateing = 0
+        total_review = 0
     course_curriculum = models.CourseCurriculum.objects.filter(course=course)
     context = {}
     if models.Student.objects.filter(student=request.user).exists():
@@ -57,6 +64,16 @@ def courses_single(request,id):
                 'studentImage':studentImage,
                 'username':username,
                 'enrolled':True,
+            }
+        
+        else:
+            context={
+                'course':course,
+                'course_review':course_review,
+                'total_review':total_review,
+                'avg_rateing':avg_rateing,
+                'course_curriculum':course_curriculum,
+                'enrolled':False
             }
             
     else:
@@ -84,10 +101,11 @@ def blogs_single(request,id):
     
     blog = models.Blog.objects.get(id=id)
     blog_review = models.BlogReview.objects.filter(blog=blog)
+    category = models.Category.objects.all()[:10]
     
-    if request.user.is_authenticated:
-        userId = request.user
-        student = models.Student.objects.get(student=userId)
+    if request.user.is_authenticated and models.Student.objects.filter(student=request.user).exists():
+        userId = request.userstudent = models.Student.objects.get(student=userId)
+        
         studentId = student.id
         studentImage = json.dumps(student.image.url)
         username = json.dumps(student.student.username)
@@ -96,15 +114,19 @@ def blogs_single(request,id):
         context={
             'blog':blog,
             'blog_review':blog_review,
+            'student': False,
             'studentId':studentId,
             'studentImage':studentImage,
-            'username':username
+            'username':username,
+            'category':category
         }
         
     else:
         context = {
             'blog':blog,
             'blog_review':blog_review,
+            'student': False,
+            'category':category
         }
     return render(request,'mentor/blog-single.html',context=context)
 
@@ -189,18 +211,25 @@ def shops_single(request,id):
     return render(request,'mentor/shop-single.html',context=context)
 
 
+
 def dashboard(request):
     user = request.user
+    category = models.Category.objects.all()
+    
     if models.Student.objects.filter(student=user).exists() and models.Teacher.objects.filter(teacher=user).exists():
         student = models.Student.objects.get(student=user)
         teacher = models.Teacher.objects.get(teacher=user)
         enrolled_courses = student.courses_enrolled.all()
         your_courses = teacher.courses_taught.all()
+        your_blogs = teacher.blog_teacher.all()
         context = {
             'student':student,
             'teacher':teacher,
             'enrolled_courses': enrolled_courses,
-            'your_courses':your_courses
+            'your_courses':your_courses,
+            'your_blogs':your_blogs,
+            'category':category,
+            
         }
         
         
@@ -220,13 +249,82 @@ def dashboard(request):
         student = None
         teacher = models.Teacher.objects.get(teacher=user)
         your_courses = teacher.courses_taught.all()
+        your_blogs = teacher.blog_teacher.all()
         
         context = {
             'student':None,
             'teacher':teacher,
-            'your_courses':your_courses
+            'your_courses':your_courses,
+            'your_blogs':your_blogs,
+            'category':category,
         }
 
         
         
     return render(request,'mentor/dashboard.html',context=context)
+
+
+import datetime
+def course_create_view(request):
+    if request.user.is_authenticated and models.Teacher.objects.filter(teacher = request.user).exists():
+        if request.method == 'POST':
+            category = models.Category.objects.get(name= request.POST['category'])
+            duration =  request.POST['duration']
+            duration = datetime.datetime.strptime(duration, '%H:%M')
+            hours = duration.hour
+            minutes = duration.minute   
+            total_course_duration = datetime.timedelta(hours=hours, minutes=minutes)
+            course = models.Course.objects.create(
+                teacher=models.Teacher.objects.get(teacher=request.user),
+                name = request.POST['name'],
+                category = category,
+                duration_hours= total_course_duration,
+                lectures= request.POST['noOfLeacture'],
+                quizzes=request.POST['quizzes'],
+                price=request.POST['price'],
+                course_summary=request.POST['course_summary'],
+                requirements=request.POST['requirements'],
+                image = request.FILES['courseImage']
+            )
+            
+            for leacture in range(int(request.POST['noOfLeacture'])):
+                lectureNo = leacture+1
+                title = f'lectureTitle{lectureNo}'
+                description = f'lectureDescription{lectureNo}'
+                duration =  f'lectureDuration{lectureNo}'
+                duration = request.POST[duration]
+                duration = datetime.datetime.strptime(duration, '%H:%M')
+                video = f'lectureVideo{lectureNo}'
+                
+                
+                hours = duration.hour
+                minutes = duration.minute
+                
+                total_leacture_duration = datetime.timedelta(hours=hours, minutes=minutes)
+                
+                models.CourseCurriculum.objects.create(
+                    course = course,
+                    title = request.POST[title],
+                    description = request.POST[description],
+                    duration = total_leacture_duration,
+                    video = request.FILES[video],          
+                )
+                
+            return HttpResponse('Your Course Created successful')
+        
+        
+
+def blog_create_view(request):
+    if request.user.is_authenticated and models.Teacher.objects.filter(teacher = request.user).exists():
+        if request.method == 'POST':
+            category = models.Category.objects.get(name = request.POST['blogCategory'])
+            teacher = models.Teacher.objects.get(teacher = request.user)
+            models.Blog.objects.create(
+                teacher = teacher,
+                title = request.POST['blogTitle'],
+                category = category,
+                content = request.POST['blogContent'],
+                image = request.FILES['blogImage']
+            )
+            return HttpResponse('Your Blog Created successful')
+    

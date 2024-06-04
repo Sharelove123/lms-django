@@ -124,6 +124,12 @@
                                                     <div id="collapseOne{{ item.id }}" class="collapse" aria-labelledby="headingOne{{ item.id }}" data-parent="#accordionExample">
                                                         <div class="card-body">
                                                             <p>{{item.description}}</p>
+                                                            {% if enrolled %}
+                                                                <video controls>
+                                                                    <source src="{{ item.video.url}}">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>

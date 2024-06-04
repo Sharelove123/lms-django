@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Contact
+from .models import Contact,Course
 
 class ContactForm(forms.ModelForm):
     class Meta:
@@ -13,7 +13,7 @@ class ContactForm(forms.ModelForm):
                 'placeholder': 'Your name',
                 'data-error': 'Name is required.',
                 'required': 'required',
-                'class': 'form-control'
+                
             }),
             'email': forms.EmailInput(attrs={
                 'name':'email',
@@ -21,7 +21,7 @@ class ContactForm(forms.ModelForm):
                 'placeholder': 'Email',
                 'data-error': 'Valid email is required.',
                 'required': 'required',
-                'class': 'form-control'
+                
             }),
             'subject': forms.TextInput(attrs={
                 'name':'subject',
@@ -29,7 +29,7 @@ class ContactForm(forms.ModelForm):
                 'placeholder': 'Subject',
                 'data-error': 'Subject is required.',
                 'required': 'required',
-                'class': 'form-control'
+                
             }),
             'phone': forms.TextInput(attrs={
                 'name':'phone',
@@ -37,13 +37,15 @@ class ContactForm(forms.ModelForm):
                 'placeholder': 'Phone',
                 'data-error': 'Phone is required.',
                 'required': 'required',
-                'class': 'form-control'
+                
             }),
             'message': forms.Textarea(attrs={
                 'name':'messege',
                 'placeholder': 'Message',
                 'data-error': 'Please, leave us a message.',
                 'required': 'required',
-                'class': 'form-control'
+                
             }),
         }
+        
+
