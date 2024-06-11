@@ -32,7 +32,7 @@
             </ul>
             
            
-            <div class="tab-content" id="myTabContent">
+            <div class="tab-content flex justify-center items-center w-full" id="myTabContent">
                  <!-- OverView -->
                  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                  <div id="counter-part" class="bg_cover pt-65 pb-110 active flex justify-center items-center w-full" data-overlay="8" style="background-image: url(images/bg-2.jpg %})">
@@ -355,6 +355,18 @@
                         {% endfor %}<!-- YourCourses cont -->
                     </div>
                 </div>
+
+                <div class="tab-pane fade" id="DeleteAccount" role="tabpanel" aria-labelledby="DeleteAccount-tab">
+                    <div class="flex justify-center items-center w-full bg-green-300 border border-red-600 border-4 rounded-lg">
+                        <div class="flex flex-col justify-center items-center w-full">
+                            <p class="m-4 text-black-500">You are sure you want to delete your account.</p>
+                            <div class="flex flex-row w-full justify-center items-center g-4">
+                                <a href="{% url 'mentor:deleteuser' %}" class="mt-4 mb-4 px-4 py-2 bg-purple-500 text-white hover:bg-purple-700 focus:bg-purple-900 rounded">Delete</a>
+                                <a href="{% url 'mentor:getdashboard' %}" class="mt-4 ml-4 mb-4 px-4 py-2 bg-purple-500 text-white hover:bg-purple-700 focus:bg-purple-900 rounded">Go Back</a>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
             </div> <!-- tab content -->
         </div>
     {% elif teacher %}
@@ -380,7 +392,7 @@
                 </li>
             </ul>
             
-            <div class="tab-content" id="myTabContent">
+            <div class="tab-content flex justify-center items-center w-full" id="myTabContent">
                 <div class="tab-pane fade show active flex justify-center" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                     <div id="counter-part" class="bg_cover pt-65 pb-110 active" data-overlay="8" style="background-image: url(images/bg-2.jpg %})">
                        <div class="container w-full">
@@ -654,6 +666,30 @@
                         </div>
                 </div>
 
+                <div class="tab-pane fade" id="DeleteAccount" role="tabpanel" aria-labelledby="DeleteAccount-tab">
+                    <div class="flex justify-center items-center w-full bg-green-300 border border-red-600 border-4 rounded-lg">
+                        <div class="flex flex-col justify-center items-center w-full">
+                            <p class="m-4 text-black-500">You are sure you want to delete your account.</p>
+                            <div class="flex flex-row w-full justify-center items-center g-4">
+                                <a href="{% url 'mentor:deleteuser' %}" class="mt-4 mb-4 px-4 py-2 bg-purple-500 text-white hover:bg-purple-700 focus:bg-purple-900 rounded">Delete</a>
+                                <a href="{% url 'mentor:getdashboard' %}" class="mt-4 ml-4 mb-4 px-4 py-2 bg-purple-500 text-white hover:bg-purple-700 focus:bg-purple-900 rounded">Go Back</a>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="DeleteAccount" role="tabpanel" aria-labelledby="DeleteAccount-tab">
+                    <div class="flex justify-center items-center w-full bg-green-300 border border-red-600 border-4 rounded-lg">
+                        <div class="flex flex-col justify-center items-center w-full">
+                            <p class="m-4 text-black-500">You are sure you want to delete your account.</p>
+                            <div class="flex flex-row w-full justify-center items-center g-4">
+                                <a href="{% url 'mentor:deleteuser' %}" class="mt-4 mb-4 px-4 py-2 bg-purple-500 text-white hover:bg-purple-700 focus:bg-purple-900 rounded">Delete</a>
+                                <a href="{% url 'mentor:getdashboard' %}" class="mt-4 ml-4 mb-4 px-4 py-2 bg-purple-500 text-white hover:bg-purple-700 focus:bg-purple-900 rounded">Go Back</a>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+                
                 </div>
             </div> <!-- tab content -->
         </div>
@@ -671,7 +707,7 @@
                 </li>
             </ul>
             
-            <div class="tab-content" id="myTabContent">
+            <div class="tab-content flex justify-center items-center w-full" id="myTabContent">
                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                     <div id="counter-part" class="bg_cover pt-65 pb-110 active flex justify-center items-center w-full" data-overlay="8" style="background-image: url(images/bg-2.jpg %})">
                        <div class="container w-full">
@@ -830,6 +866,20 @@
                             </div>
                     </div> <!-- reviews cont -->
                 </div>
+
+                <div class="tab-pane fade" id="DeleteAccount" role="tabpanel" aria-labelledby="DeleteAccount-tab">
+                    <div class="flex justify-center items-center w-full bg-green-300 border border-red-600 border-4 rounded-lg">
+                        <div class="flex flex-col justify-center items-center w-full">
+                            <p class="m-4 text-black-500">You are sure you want to delete your account.</p>
+                            <div class="flex flex-row w-full justify-center items-center g-4">
+                                <a href="{% url 'mentor:deleteuser' %}" class="mt-4 mb-4 px-4 py-2 bg-purple-500 text-white hover:bg-purple-700 focus:bg-purple-900 rounded">Delete</a>
+                                <a href="{% url 'mentor:getdashboard' %}" class="mt-4 ml-4 mb-4 px-4 py-2 bg-purple-500 text-white hover:bg-purple-700 focus:bg-purple-900 rounded">Go Back</a>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+
+
             </div> <!-- tab content -->
         </div>
     {% endif %}

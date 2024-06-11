@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.core.paginator import Paginator
 from . import models
 from django.db.models import Case, When, CharField, Value, F, Avg, ImageField
@@ -327,4 +327,15 @@ def blog_create_view(request):
                 image = request.FILES['blogImage']
             )
             return HttpResponse('Your Blog Created successful')
+
+
+def delete_user(request):
+    user = request.user
+    user.delete()
+    print('user deleted')
+    return redirect('core:home')
+
+def getdashboard(request):
+    if request.user.is_authenticated:
+        return redirect('mentor:dashboard')
     
