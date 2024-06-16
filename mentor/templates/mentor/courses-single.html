@@ -254,7 +254,11 @@
                                 </ul>
                                 <div class="price-button pt-10">
                                     <span>Price : <b>${{course.price}}</b></span>
-                                    <a href="#" class="main-btn">Enroll Now</a>
+                                    {% if enrolled %}
+                                        <h4 class="flex item-center justify-content-center color-blue">Enrolled</h4>
+                                    {% else %}
+                                        <a href="#" class="main-btn">Enroll Now</a>
+                                    {% endif %}
                                 </div>
                             </div> <!-- course features -->
                         </div>

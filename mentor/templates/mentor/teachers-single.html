@@ -84,78 +84,43 @@
                                 <div class="courses-cont pt-20">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="singel-course mt-30">
-                                                <div class="thum">
-                                                    <div class="image">
-                                                        <img src={{teacher.image.url}} alt="Course">
-                                                    </div>
-                                                    <div class="price">
-                                                        <span>$10</span>
-                                                    </div>
-                                                </div>
-                                                <div class="cont border">
-                                                    <ul>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(20 Reviws)</span>
-                                                    <a href='#'><h4>Learn basis javascirpt from start for beginner</h4></a>
-                                                    <div class="course-teacher">
-                                                        <div class="thum">
-                                                            <a href='#'><img src="{% static 'images/course/teacher/t-2.jpg' %} " alt="teacher"></a>
+                                            {% for item in teacher_courses %}
+                                                <div class="singel-course mt-30">
+                                                    <div class="thum">
+                                                        <div class="image">
+                                                            <img src={{item.image.url}} alt="Course">
                                                         </div>
-                                                        <div class="name">
-                                                            <a href='#'><h6>Mark anthem</h6></a>
-                                                        </div>
-                                                        <div class="admin">
-                                                            <ul>
-                                                                <li><a href='#'><i class="fa fa-user"></i><span>31</span></a></li>
-                                                                <li><a href='#'><i class="fa fa-heart"></i><span>10</span></a></li>
-                                                            </ul>
+                                                        <div class="price">
+                                                            <span>{{item.price}}</span>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div> <!-- singel course -->
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="singel-course mt-30">
-                                                <div class="thum">
-                                                    <div class="image">
-                                                        <img src="{% static 'images/course/cu-3.jpg' %} " alt="Course">
-                                                    </div>
-                                                    <div class="price">
-                                                        <span>$30</span>
-                                                    </div>
-                                                </div>
-                                                <div class="cont border">
-                                                    <ul>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(20 Reviws)</span>
-                                                    <a href='#'><h4>Learn basis javascirpt from start for beginner</h4></a>
-                                                    <div class="course-teacher">
-                                                        <div class="thum">
-                                                            <a href='#'><img src="{% static 'images/course/teacher/t-2.jpg' %} " alt="teacher"></a>
-                                                        </div>
-                                                        <div class="name">
-                                                            <a href='#'><h6>Mark anthem</h6></a>
-                                                        </div>
-                                                        <div class="admin">
-                                                            <ul>
-                                                                <li><a href='#'><i class="fa fa-user"></i><span>31</span></a></li>
-                                                                <li><a href='#'><i class="fa fa-heart"></i><span>10</span></a></li>
-                                                            </ul>
+                                                    <div class="cont border">
+                                                        <ul>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                        </ul>
+                                                        <span>(20 Reviws)</span>
+                                                        <a href="{% url 'mentor:courses-single' item.id %}"><h4>{{item.name}}</h4></a>
+                                                        <div class="course-teacher">
+                                                            <div class="thum">
+                                                                <a href='#'><img src={{item.teacher.image.url}} alt="teacher"></a>
+                                                            </div>
+                                                            <div class="name">
+                                                                <a href='#'><h6>{{item.teacher.teacher.name}}</h6></a>
+                                                            </div>
+                                                            <div class="admin">
+                                                                <ul>
+                                                                    <li><a href='#'><i class="fa fa-user"></i><span>31</span></a></li>
+                                                                    <li><a href='#'><i class="fa fa-heart"></i><span>10</span></a></li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div> <!-- singel course -->
+                                                </div> <!-- singel course -->
+                                            {% endfor %}
                                         </div>
                                     </div> <!-- row -->
                                 </div> <!-- courses cont -->

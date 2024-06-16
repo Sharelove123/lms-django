@@ -19,7 +19,6 @@ def teachers(request):
 def teachers_single(request,id):
     teacher = models.Teacher.objects.get(id=id)
     teacher_courses = models.Course.objects.filter(teacher=teacher)
-    print(teacher.courses.all())
     context={
         'teacher':teacher,
         'teacher_courses':teacher_courses,
