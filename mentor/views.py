@@ -18,7 +18,12 @@ def teachers(request):
 
 def teachers_single(request,id):
     teacher = models.Teacher.objects.get(id=id)
-    context={'teacher':teacher}
+    teacher_courses = models.Course.objects.filter(teacher=teacher)
+    print(teacher.courses.all())
+    context={
+        'teacher':teacher,
+        'teacher_courses':teacher_courses,
+    }
     return render(request,'mentor/teachers-single.html',context=context)
 
 
