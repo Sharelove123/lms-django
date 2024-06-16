@@ -1,7 +1,7 @@
 from django.contrib import admin
 # Register your models here.
 
-from .models import Teacher,CourseReview,Student,Category,Course,CourseCurriculum,Blog,BlogReview,Contact,Product,ReviewProduct
+from .models import Teacher,CourseReview,Student,Category,Course,CourseCurriculum,Blog,BlogReview,Contact
 
 
 @admin.register(Student)
@@ -40,13 +40,7 @@ class BlogReviewAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display = ['id']
     
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id']
-    
-@admin.register(ReviewProduct)
-class ReviewProductAdmin(admin.ModelAdmin):
-    list_display = ['id']
+
 
 #admin.site.register(Student, StudentAdmin)
 #admin.site.register(Teacher, TeacherAdmin)

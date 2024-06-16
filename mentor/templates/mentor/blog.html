@@ -37,7 +37,7 @@
                            <img src="{{item.image.url}}" alt="Blog">
                        </div>
                        <div class="blog-cont">
-                           <a href="{% url 'mentor:blogs-single' item.id}"><h3>Few tips for get better results in examination</h3></a>
+                           <a href="{% url 'mentor:blogs-single' item.id %}"><h3>Few tips for get better results in examination</h3></a>
                            <ul>
                                <li><a href="#"><i class="fa fa-calendar"></i>{{item.created_at}}</a></li>
                                <li><a href="#"><i class="fa fa-user"></i>{{item.teacher.teacher.username}}</a></li>

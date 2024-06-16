@@ -104,7 +104,8 @@ def blogs_single(request,id):
     category = models.Category.objects.all()[:10]
     
     if request.user.is_authenticated and models.Student.objects.filter(student=request.user).exists():
-        userId = request.userstudent = models.Student.objects.get(student=userId)
+        userId = request.user
+        student = models.Student.objects.get(student=userId)
         
         studentId = student.id
         studentImage = json.dumps(student.image.url)
@@ -114,7 +115,7 @@ def blogs_single(request,id):
         context={
             'blog':blog,
             'blog_review':blog_review,
-            'student': False,
+            'student': True,
             'studentId':studentId,
             'studentImage':studentImage,
             'username':username,
